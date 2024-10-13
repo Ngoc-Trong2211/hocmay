@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Prediction</title>
+
+    <style>
+        body {
+            max-width: 600px;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, rgb(78, 176, 226), rgba(78, 176, 226));
+            color: #fff;
+            padding: 69px 0;
+            margin: 0 auto;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 8px; /* Thêm khoảng cách giữa label và input */
+        }
+        input[type="text"] {
+            width: 89%;
+        }
+        input[type="text"], select {
+            padding: 12px;
+            margin-bottom: 15px; /* Khoảng cách giữa các input */
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        select {
+            width: 93%; /* Chiều dài của select */
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        input[type="submit"] {
+            width: 93%;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #174966;
+        }
+        h3 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            input[type="submit"] {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Dự đoán chỉ số BMI</h1>
+    <form method="POST" action="/predict">
+        <label for="age">Tuổi:</label>
+        <input type="text" id="age" name="Age" required>
+        
+        <label for="height">Chiều cao:</label>
+        <input type="text" id="height" name="Height(Inches)" required>
+        
+        <label for="weight">Cân nặng:</label>
+        <input type="text" id="weight" name="Weight(Pounds)" required>
+
+        <label for="model_type">Lựa chọn thuật toán:</label>
+        <select id="model_type" name="model_type" required>
+            <option value="linear">Linear Regression</option>
+            <option value="ridge">Ridge Regression</option>
+            <option value="neural">Neural Network</option>
+            <option value="stacking">Stacking Model</option>
+        </select>
+
+        <input type="submit" value="Dự đoán">
+    </form>
+
+    {% if prediction_text %}
+    <h2>{{ prediction_text }}</h2>
+    {% endif %}
+</body>
+</html>
